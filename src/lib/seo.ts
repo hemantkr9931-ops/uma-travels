@@ -47,6 +47,9 @@ export function buildMetadata(options: SEOOptions): Metadata {
     // meta keywords intentionally omitted: Google ignores them; they are a spam signal
     alternates: {
       canonical: canonicalUrl,
+      languages: {
+        'en-IN': canonicalUrl,
+      },
     },
     robots: noIndex
       ? { index: false, follow: false, googleBot: { index: false, follow: false } }

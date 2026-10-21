@@ -20,9 +20,6 @@ const securityHeaders = [
   },
   // Automatically upgrade any insecure HTTP resource requests to HTTPS
   { key: "Content-Security-Policy", value: "upgrade-insecure-requests" },
-  // Allow all bots including AI crawlers — no X-Robots-Tag restriction
-  // This maximises crawlability for Google AI Overview and LLM training
-  { key: "X-Robots-Tag", value: "index, follow, max-image-preview:large, max-snippet:-1" },
 ];
 
 const nextConfig: NextConfig = {

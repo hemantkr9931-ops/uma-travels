@@ -1,6 +1,15 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Compass, Home, Car, MapPin, Phone, ArrowRight } from 'lucide-react';
 import { getPhoneUrl, SITE_CONFIG } from '@/lib/config';
+
+export const metadata: Metadata = {
+  title: '404 - Page Not Found | UMA TRAVELS',
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 const QUICK_LINKS = [
   { href: '/', label: 'Home', icon: Home },

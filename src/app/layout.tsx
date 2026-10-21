@@ -47,9 +47,9 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: SITE_CONFIG.siteUrl,
+    canonical: `${SITE_CONFIG.siteUrl}/`,
     languages: {
-      'en-IN': SITE_CONFIG.siteUrl,
+      'en-IN': `${SITE_CONFIG.siteUrl}/`,
     },
   },
   openGraph: {

@@ -79,21 +79,14 @@ type PageProps = {
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
   const sp = await searchParams;
   const q = Array.isArray(sp.q) ? sp.q[0] : sp.q;
-  const base = buildMetadata({
-    title: 'Intercity Cab Routes — Outstation Taxi, One-Way Cab & Car Rental from Dhanbad',
+  const queryStr = q?.trim() ? ` — Search: "${q.trim()}"` : '';
+
+  return buildMetadata({
+    title: `Intercity Cab Routes${queryStr} — Outstation Taxi, One-Way Cab & Car Rental from Dhanbad`,
     description:
       'Browse 900+ verified intercity cab routes with UMA TRAVELS. One-way cab, outstation taxi, round-trip, Innova cab & car rental from Dhanbad, Ranchi, Bokaro, Jamshedpur across Jharkhand, West Bengal, Bihar, Odisha & UP. Transparent fares, verified drivers.',
     canonicalPath: '/routes/',
   });
-
-  // Search result pages are never indexed directly; the canonical stays on /routes/.
-  if (q && q.trim()) {
-    return {
-      ...base,
-      robots: { index: false, follow: true },
-    };
-  }
-  return base;
 }
 
 export default async function RoutesPage({ searchParams }: PageProps) {
