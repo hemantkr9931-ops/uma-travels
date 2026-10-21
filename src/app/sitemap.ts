@@ -27,26 +27,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
       images: [
         `${base}/uma-travels-bg1.webp`,
+        `${base}/uma-travels-bg1.jpg`,
         `${base}/uma-travels-bg2.webp`,
         `${base}/uma-travels-bg3.webp`,
       ],
     },
-    { url: `${base}/about-us/`, lastModified: siteUpdatedDate, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${base}/contact-us/`, lastModified: siteUpdatedDate, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${base}/about-us/`, lastModified: siteUpdatedDate, changeFrequency: 'monthly', priority: 0.7, images: [`${base}/uma-travels-bg1.webp`, `${base}/uma-travels-bg1.jpg`] },
+    { url: `${base}/contact-us/`, lastModified: siteUpdatedDate, changeFrequency: 'monthly', priority: 0.8, images: [`${base}/uma-travels-bg1.webp`, `${base}/uma-travels-bg1.jpg`] },
     {
       url: `${base}/fleet/`,
       lastModified: siteUpdatedDate,
       changeFrequency: 'monthly',
       priority: 0.8,
-      images: VEHICLES.map((v) => `${base}${v.image}`),
+      images: [`${base}/uma-travels-bg1.webp`, ...VEHICLES.map((v) => `${base}${v.image}`)],
     },
-    { url: `${base}/routes/`, lastModified: siteUpdatedDate, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${base}/faq/`, lastModified: siteUpdatedDate, changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${base}/booking-policy/`, lastModified: siteUpdatedDate, changeFrequency: 'yearly', priority: 0.4 },
-    { url: `${base}/cancellation-policy/`, lastModified: siteUpdatedDate, changeFrequency: 'yearly', priority: 0.4 },
-    { url: `${base}/privacy-policy/`, lastModified: siteUpdatedDate, changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${base}/terms-and-conditions/`, lastModified: siteUpdatedDate, changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${base}/sitemap/`, lastModified: siteUpdatedDate, changeFrequency: 'monthly', priority: 0.4 },
+    { url: `${base}/routes/`, lastModified: siteUpdatedDate, changeFrequency: 'weekly', priority: 0.9, images: [`${base}/uma-travels-bg1.webp`, `${base}/uma-travels-bg1.jpg`] },
+    { url: `${base}/faq/`, lastModified: siteUpdatedDate, changeFrequency: 'monthly', priority: 0.6, images: [`${base}/uma-travels-bg1.webp`, `${base}/uma-travels-bg1.jpg`] },
+    { url: `${base}/booking-policy/`, lastModified: siteUpdatedDate, changeFrequency: 'yearly', priority: 0.4, images: [`${base}/uma-travels-bg1.webp`, `${base}/uma-travels-bg1.jpg`] },
+    { url: `${base}/cancellation-policy/`, lastModified: siteUpdatedDate, changeFrequency: 'yearly', priority: 0.4, images: [`${base}/uma-travels-bg1.webp`, `${base}/uma-travels-bg1.jpg`] },
+    { url: `${base}/privacy-policy/`, lastModified: siteUpdatedDate, changeFrequency: 'yearly', priority: 0.3, images: [`${base}/uma-travels-bg1.webp`, `${base}/uma-travels-bg1.jpg`] },
+    { url: `${base}/terms-and-conditions/`, lastModified: siteUpdatedDate, changeFrequency: 'yearly', priority: 0.3, images: [`${base}/uma-travels-bg1.webp`, `${base}/uma-travels-bg1.jpg`] },
+    { url: `${base}/sitemap/`, lastModified: siteUpdatedDate, changeFrequency: 'monthly', priority: 0.4, images: [`${base}/uma-travels-bg1.webp`, `${base}/uma-travels-bg1.jpg`] },
   ];
 
   // State pages — last modified when the newest city in the state was verified
@@ -61,6 +62,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(latest),
       changeFrequency: 'monthly',
       priority: 0.8,
+      images: [`${base}/uma-travels-bg1.webp`, `${base}/uma-travels-bg1.jpg`],
     };
   });
 
@@ -70,6 +72,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(city.lastVerified),
     changeFrequency: 'monthly',
     priority: city.isHub ? 0.9 : 0.7,
+    images: [`${base}/uma-travels-bg1.webp`, `${base}/uma-travels-bg1.jpg`],
   }));
 
   // Hub city service pages
@@ -79,6 +82,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(city.lastVerified),
       changeFrequency: 'monthly',
       priority: 0.85,
+      images: [`${base}/uma-travels-bg1.webp`, `${base}/uma-travels-bg1.jpg`],
     }))
   );
 
@@ -89,7 +93,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(city.lastVerified),
       changeFrequency: 'monthly',
       priority: 0.85,
-      images: [`${base}${vehicle.image}`],
+      images: [`${base}/uma-travels-bg1.webp`, `${base}${vehicle.image}`],
     }))
   );
 
@@ -101,6 +105,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(route.lastVerified),
       changeFrequency: 'monthly',
       priority: 0.85,
+      images: [`${base}/uma-travels-bg1.webp`, `${base}/uma-travels-bg1.jpg`],
     }));
 
   return [

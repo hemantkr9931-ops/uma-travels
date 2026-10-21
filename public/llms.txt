@@ -1,0 +1,29 @@
+# UMA TRAVELS
+
+> Premium Cab Service, Taxi Booking, Car Rental & Corporate Travel headquartered in Dhanbad, Jharkhand, serving Eastern India.
+
+UMA TRAVELS operates 24/7 across Jharkhand, West Bengal, Bihar, Odisha, and Uttar Pradesh with a fleet of Sedans, Ertiga, Innova Crysta, and Tempo Travellers. We provide one-way drops, round-trip outstation cabs, airport transfers, local city rentals, and corporate travel.
+
+## Docs
+
+- [Cab Booking & Home](https://www.uma-travels.com/): Online cab and taxi booking in Dhanbad and outstation routes.
+- [Outstation Cabs & Taxi Routes](https://www.uma-travels.com/routes/): Intercity outstation taxi services, point-to-point one-way cabs, and round-trips.
+- [Fleet & Vehicle Options](https://www.uma-travels.com/fleet/): Detailed specifications of Sedans, Ertiga, Innova Crysta, and Tempo Travellers.
+- [About UMA TRAVELS](https://www.uma-travels.com/about-us/): Company history, verified chauffeurs, safety standards, and customer guarantees.
+- [Contact & Support](https://www.uma-travels.com/contact-us/): 24/7 phone assistance, WhatsApp dispatch, and office location in Dhanbad.
+- [FAQ](https://www.uma-travels.com/faq/): Answers regarding per-km fares, tolls, luggage allowances, and night charges.
+- [Booking Policy](https://www.uma-travels.com/booking-policy/): Transparent billing, zero advance required, pay after trip completion.
+- [Cancellation Policy](https://www.uma-travels.com/cancellation-policy/): 100% free cancellation with no penalty.
+- [Terms & Conditions](https://www.uma-travels.com/terms-and-conditions/): Service agreement, passenger safety guidelines, and terms of use.
+- [Privacy Policy](https://www.uma-travels.com/privacy-policy/): Data privacy, user confidentiality, and booking security practices.
+- [Jharkhand Cab Service](https://www.uma-travels.com/jharkhand/): Cabs across Dhanbad, Ranchi, Bokaro, Jamshedpur, Deoghar, Giridih, Hazaribagh.
+- [West Bengal Cab Service](https://www.uma-travels.com/west-bengal/): Intercity connectivity to Kolkata, Asansol, Durgapur, Siliguri, Howrah.
+- [Bihar Cab Service](https://www.uma-travels.com/bihar/): Services covering Patna, Gaya, Muzaffarpur, Bhagalpur, Darbhanga.
+- [Odisha Cab Service](https://www.uma-travels.com/odisha/): Routes connecting to Bhubaneswar, Cuttack, Rourkela, Puri.
+- [Uttar Pradesh Cab Service](https://www.uma-travels.com/uttar-pradesh/): Outstation travel to Varanasi, Prayagraj, Lucknow, Ayodhya.
+
+## Optional
+
+- [Full Documentation](https://www.uma-travels.com/llms-full.txt): Complete text database of all 900+ routes, city travel guides, and operational details.
+- [Machine-Readable Route Catalog](https://www.uma-travels.com/ai-catalog.json): Structured JSON catalog of all published routes and base fares.
+

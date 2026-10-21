@@ -39,6 +39,7 @@ interface VehicleFare {
   oneWayDistanceKm: number;
   ratePerKm: number;
   baseDistanceCharge: number;
+  shortDistanceRental?: number;
   nightHaltCount: number;
   nightHaltCharge: number;
   perNightHaltRate: number;
@@ -213,11 +214,11 @@ function LocationInput({
             <button
               type="button"
               onClick={onSwap}
-              className="w-7 h-7 flex items-center justify-center rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200/80 hover:border-amber-300 shadow-sm transition-all hover:scale-105 active:scale-95 cursor-pointer"
+              className="w-8 h-8 min-w-[32px] min-h-[32px] flex items-center justify-center rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200/80 hover:border-amber-300 shadow-sm transition-all hover:scale-105 active:scale-95 cursor-pointer"
               title="Swap pickup and destination"
               aria-label="Swap pickup and destination"
             >
-              <ArrowLeftRight size={13} />
+              <ArrowLeftRight size={14} />
             </button>
           )}
           {onGps && !isLocked && (
@@ -225,11 +226,11 @@ function LocationInput({
               type="button"
               onClick={onGps}
               disabled={gpsLoading}
-              className="w-7 h-7 flex items-center justify-center rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200/80 hover:border-blue-300 shadow-sm transition-all hover:scale-105 active:scale-95 cursor-pointer disabled:opacity-50"
+              className="w-8 h-8 min-w-[32px] min-h-[32px] flex items-center justify-center rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200/80 hover:border-blue-300 shadow-sm transition-all hover:scale-105 active:scale-95 cursor-pointer disabled:opacity-50"
               title="Use current GPS location"
               aria-label="Detect GPS location"
             >
-              {gpsLoading ? <Loader2 size={13} className="animate-spin text-blue-600" /> : <Locate size={13} />}
+              {gpsLoading ? <Loader2 size={14} className="animate-spin text-blue-600" /> : <Locate size={14} />}
             </button>
           )}
         </div>
@@ -356,18 +357,16 @@ function VehicleFareCard({ fare, isSelected, onSelect }: VehicleFareCardProps) {
               </span>
               <span className="font-bold text-slate-900">{fare.oneWayDistanceKm} km</span>
             </div>
-            <div className="flex justify-between items-center text-slate-600">
-              <span>Applied Rate</span>
-              <span className="font-bold text-amber-700">₹{fare.ratePerKm}/km</span>
-            </div>
             <div className="flex justify-between items-center text-slate-600 pt-1 border-t border-slate-200/60">
-              <span className="text-[11px] text-slate-500">
-                {isRound
-                  ? `Base (${2 * fare.oneWayDistanceKm} km × ₹${fare.ratePerKm})`
-                  : `Base (${fare.oneWayDistanceKm} km × ₹${fare.ratePerKm})`}
-              </span>
+              <span className="text-slate-600 font-medium">Base Trip Fare</span>
               <span className="font-bold text-slate-900">₹{fare.baseDistanceCharge.toLocaleString('en-IN')}</span>
             </div>
+            {(fare.shortDistanceRental ?? (fare.oneWayDistanceKm < 50 ? 700 : 0)) > 0 && (
+              <div className="flex justify-between items-center text-amber-800">
+                <span className="font-medium">Rental Charge (&lt; 50 km)</span>
+                <span className="font-bold text-amber-900">₹{(fare.shortDistanceRental || 700).toLocaleString('en-IN')}</span>
+              </div>
+            )}
             {isRound && fare.nightHaltCount > 0 && (
               <div className="flex justify-between items-center text-blue-700">
                 <span className="flex items-center gap-1">
@@ -435,12 +434,18 @@ export default function FreeTaxiBookingForm({ prefillFrom = '', prefillTo = '' }
   const [fromSelected, setFromSelected] = useState<SelectedLocation | null>(null);
   const [toSelected, setToSelected] = useState<SelectedLocation | null>(null);
   const [tripType, setTripType] = useState<'one-way' | 'round-trip'>('one-way');
-  const [pickupDate, setPickupDate] = useState(getLocalDateISO());
+  const [pickupDate, setPickupDate] = useState('');
   const [returnDate, setReturnDate] = useState('');
   const [passengers, setPassengers] = useState(1);
-  const [minDate] = useState(getLocalDateISO());
+  const [minDate, setMinDate] = useState('');
   const [gpsLoading, setGpsLoading] = useState(false);
   const [gpsError, setGpsError] = useState('');
+
+  useEffect(() => {
+    const today = getLocalDateISO();
+    setPickupDate(today);
+    setMinDate(today);
+  }, []);
 
   // ── Search errors ──────────────────────────────────────────────────────────
   const [fromError, setFromError] = useState('');
@@ -1023,6 +1028,7 @@ export default function FreeTaxiBookingForm({ prefillFrom = '', prefillTo = '' }
                 min={minDate}
                 value={pickupDate}
                 onChange={(e) => { setPickupDate(e.target.value); setDateError(''); }}
+                suppressHydrationWarning
                 className={`w-full text-xs sm:text-sm font-semibold rounded-xl border px-3 py-2 outline-none transition shadow-sm ${
                   dateError 
                     ? 'border-rose-400 bg-rose-50 text-rose-900 ring-2 ring-rose-100' 
@@ -1045,6 +1051,7 @@ export default function FreeTaxiBookingForm({ prefillFrom = '', prefillTo = '' }
                   min={pickupDate || minDate}
                   value={returnDate}
                   onChange={(e) => { setReturnDate(e.target.value); setReturnDateError(''); }}
+                  suppressHydrationWarning
                   className={`w-full text-xs sm:text-sm font-semibold rounded-xl border px-3 py-2 outline-none transition shadow-sm ${
                     returnDateError 
                       ? 'border-rose-400 bg-rose-50 ring-2 ring-rose-100 text-rose-900' 

@@ -74,6 +74,12 @@ export const FARE_CONFIG = {
 // UNLESS the destination is Kolkata (special exception).
 export const ONE_WAY_MAX_KM = 200;
 
+// ─── SHORT-DISTANCE RENTAL CHARGE ─────────────────────────────────────────────
+// Routes under this distance threshold incur a flat rental surcharge because
+// short trips don't cover the minimum driver deployment cost.
+export const SHORT_DISTANCE_THRESHOLD_KM = 50;
+export const SHORT_DISTANCE_RENTAL_CHARGE = 700;
+
 // ─── KOLKATA BOUNDING BOX ─────────────────────────────────────────────────────
 // Used server-side to determine if resolved coordinates are within Kolkata.
 // Kolkata municipal area: roughly 22.4–22.7°N, 88.2–88.5°E
@@ -198,6 +204,8 @@ export interface FareBreakdown {
   oneWayDistanceKm: number;
   ratePerKm: number;
   baseDistanceCharge: number;
+  /** Short-distance rental charge (₹700 for routes < 50 km) */
+  shortDistanceRental: number;
   nightHaltCount: number;
   nightHaltCharge: number;
   totalFare: number;
@@ -263,6 +271,8 @@ export function calculateFare(options: FareOptions): FareBreakdown {
     const ratePerKm = requiresReturnFare ? fareConfig.roundTripPerKm : fareConfig.oneWayPerKm;
     const factor = requiresReturnFare ? 2 : 1;
     const baseDistanceCharge = Math.round(options.distanceKm * ratePerKm * factor);
+    const shortDistanceRental = options.distanceKm < SHORT_DISTANCE_THRESHOLD_KM ? SHORT_DISTANCE_RENTAL_CHARGE : 0;
+    const totalFare = baseDistanceCharge + shortDistanceRental;
 
     return {
       vehicleId: options.vehicleId,
@@ -271,9 +281,10 @@ export function calculateFare(options: FareOptions): FareBreakdown {
       oneWayDistanceKm: options.distanceKm,
       ratePerKm,
       baseDistanceCharge,
+      shortDistanceRental,
       nightHaltCount: 0,
       nightHaltCharge: 0,
-      totalFare: baseDistanceCharge,
+      totalFare,
       disclaimer:
         'Quoted fare is for one-way travel. Toll charges, parking charges, and driver allowance are not included and may be payable separately where applicable.',
     };
@@ -282,6 +293,7 @@ export function calculateFare(options: FareOptions): FareBreakdown {
   // Round-trip
   const ratePerKm = fareConfig.roundTripPerKm;
   const baseDistanceCharge = Math.round(2 * options.distanceKm * ratePerKm);
+  const shortDistanceRental = options.distanceKm < SHORT_DISTANCE_THRESHOLD_KM ? SHORT_DISTANCE_RENTAL_CHARGE : 0;
 
   let nightHaltCount = 0;
   let nightHaltChargeTotal = 0;
@@ -290,7 +302,7 @@ export function calculateFare(options: FareOptions): FareBreakdown {
     nightHaltChargeTotal = nightHaltCount * vehicle.nightHaltCharge;
   }
 
-  const totalFare = baseDistanceCharge + nightHaltChargeTotal;
+  const totalFare = baseDistanceCharge + shortDistanceRental + nightHaltChargeTotal;
 
   return {
     vehicleId: options.vehicleId,
@@ -299,6 +311,7 @@ export function calculateFare(options: FareOptions): FareBreakdown {
     oneWayDistanceKm: options.distanceKm,
     ratePerKm,
     baseDistanceCharge,
+    shortDistanceRental,
     nightHaltCount,
     nightHaltCharge: nightHaltChargeTotal,
     totalFare,

@@ -19,6 +19,11 @@ interface HeroSlideshowProps {
 export default function HeroSlideshow({ className = '', overlayClassName = '' }: HeroSlideshowProps) {
   const [current, setCurrent] = useState(0);
   const [prev, setPrev] = useState<number | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const advance = useCallback(() => {
     setCurrent((c) => {
@@ -28,32 +33,37 @@ export default function HeroSlideshow({ className = '', overlayClassName = '' }:
   }, []);
 
   useEffect(() => {
+    if (!mounted) return;
     const t = setInterval(advance, INTERVAL_MS);
     return () => clearInterval(t);
-  }, [advance]);
+  }, [advance, mounted]);
 
   return (
     <div className={`absolute inset-0 overflow-hidden ${className}`} aria-hidden="true">
-      {SLIDES.map((slide, idx) => (
-        <div
-          key={slide.src}
-          className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
-          style={{
-            opacity: idx === current ? 1 : idx === prev ? 0 : 0,
-            zIndex: idx === current ? 2 : idx === prev ? 1 : 0,
-          }}
-        >
-          <Image
-            src={slide.src}
-            alt={slide.alt}
-            fill
-            preload={idx === 0}
-            quality={95}
-            sizes="100vw"
-            style={{ objectFit: 'cover', objectPosition: 'center' }}
-          />
-        </div>
-      ))}
+      {SLIDES.map((slide, idx) => {
+        if (idx > 0 && !mounted) return null;
+        return (
+          <div
+            key={slide.src}
+            className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+            style={{
+              opacity: idx === current ? 1 : idx === prev ? 0 : 0,
+              zIndex: idx === current ? 2 : idx === prev ? 1 : 0,
+            }}
+          >
+            <Image
+              src={slide.src}
+              alt={slide.alt}
+              fill
+              priority={idx === 0}
+              loading={idx === 0 ? 'eager' : 'lazy'}
+              quality={75}
+              sizes="100vw"
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
+            />
+          </div>
+        );
+      })}
 
       {/* Clean overlay: only applied if explicitly passed, no hardcoded milky-white fade */}
       {overlayClassName && (

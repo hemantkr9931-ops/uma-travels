@@ -8,6 +8,7 @@ const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "Cross-Origin-Opener-Policy", value: "same-origin-allow-popups" },
   {
     key: "Permissions-Policy",
     value: "camera=(), microphone=(), geolocation=(), payment=()",
@@ -17,6 +18,8 @@ const securityHeaders = [
     key: "Strict-Transport-Security",
     value: "max-age=63072000; includeSubDomains; preload",
   },
+  // Automatically upgrade any insecure HTTP resource requests to HTTPS
+  { key: "Content-Security-Policy", value: "upgrade-insecure-requests" },
   // Allow all bots including AI crawlers — no X-Robots-Tag restriction
   // This maximises crawlability for Google AI Overview and LLM training
   { key: "X-Robots-Tag", value: "index, follow, max-image-preview:large, max-snippet:-1" },
@@ -34,7 +37,7 @@ const nextConfig: NextConfig = {
   expireTime: 31536000,
   // Allow LAN devices (e.g. a phone on the same network) to load dev-only
   // assets like /_next/hmr while testing mobile responsiveness.
-  allowedDevOrigins: ["172.26.71.103"],
+  allowedDevOrigins: ["10.53.2.103", "172.26.71.103"],
   images: {
     // Next.js 16 restricts optimization quality values by default to [75].
     // Declare the qualities used by the app so `quality={95}` is honored.
@@ -57,6 +60,21 @@ const nextConfig: NextConfig = {
         as: "*.css",
       },
     },
+  },
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "uma-travels.com",
+          },
+        ],
+        destination: "https://www.uma-travels.com/:path*",
+        permanent: true,
+      },
+    ];
   },
   async headers() {
     return [

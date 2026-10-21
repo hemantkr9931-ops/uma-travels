@@ -46,7 +46,8 @@ function GoogleIcon({ className = 'w-4 h-4' }: { className?: string }) {
 function Stars({ rating, className = '' }: { rating: number; className?: string }) {
   const rounded = Math.round(rating);
   return (
-    <span className={`inline-flex items-center gap-0.5 ${className}`} aria-label={`${rating} out of 5 stars`}>
+    <span className={`inline-flex items-center gap-0.5 ${className}`}>
+      <span className="sr-only">{rating} out of 5 stars</span>
       {[1, 2, 3, 4, 5].map((star) => (
         <Star
           key={star}

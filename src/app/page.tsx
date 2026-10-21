@@ -167,54 +167,49 @@ export default function HomePage() {
           HERO SECTION — Auto-sliding background images
       ═══════════════════════════════════════════════════════════════ */}
       <section
-        className="relative min-h-screen flex flex-col"
+        className="relative min-h-[100dvh] min-h-screen flex flex-col"
+        style={{ minHeight: '100dvh' }}
         aria-labelledby="hero-heading"
       >
         {/* Auto-sliding background images (no buttons) */}
         <HeroSlideshow />
 
         {/* Hero content (above overlay, z-20) */}
-        <div className="relative z-20 container-site flex-1 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 pt-24 sm:pt-28 lg:pt-32 pb-16 min-h-screen">
+        <div
+          className="relative z-20 container-site flex-1 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 pt-24 sm:pt-28 lg:pt-32 pb-16 min-h-[100dvh] min-h-screen"
+          style={{ minHeight: '100dvh' }}
+        >
           {/* Left column on desktop, second on mobile — Glassmorphic floating card */}
           <div className="flex-1 max-w-xl order-2 lg:order-1 glass rounded-3xl p-6 sm:p-7 md:p-9 shadow-2xl border border-white/80">
-            <div className="badge-gold mb-5 animate-fadeInUp">
+            <div className="badge-gold mb-5">
               <MapPin size={12} />
               Dhanbad, Jharkhand — Serving 5 States
             </div>
 
             <h1
               id="hero-heading"
-              className="text-4xl md:text-5xl xl:text-6xl font-black leading-tight mb-4 animate-fadeInUp"
-              style={{ animationDelay: '0.1s', fontFamily: 'var(--font-display)' }}
+              className="text-4xl md:text-5xl xl:text-6xl font-black leading-tight mb-4"
+              style={{ fontFamily: 'var(--font-display)' }}
             >
               Premium Cab Service
               <br />
               <span className="text-gradient-gold">from Dhanbad</span>
             </h1>
 
-            <p
-              className="text-lg text-[var(--color-text-secondary)] mb-3 animate-fadeInUp"
-              style={{ animationDelay: '0.15s' }}
-            >
+            <p className="text-lg text-[var(--color-text-secondary)] mb-3">
               <strong className="text-[var(--color-text-primary)]">UMA TRAVELS</strong> —{' '}
               <span className="text-[var(--color-text-muted)] text-sm uppercase tracking-widest">
                 Cabs · Car Rental · Corporate Travels
               </span>
             </p>
 
-            <p
-              className="text-base text-[var(--color-text-secondary)] leading-relaxed mb-8 animate-fadeInUp"
-              style={{ animationDelay: '0.2s' }}
-            >
+            <p className="text-base text-[var(--color-text-secondary)] leading-relaxed mb-8">
               Reliable local taxi, outstation cabs, airport transfers, and corporate travel across
               Jharkhand, West Bengal, Bihar, Odisha, and Uttar Pradesh.
             </p>
 
             {/* Trust badges */}
-            <div
-              className="flex flex-wrap gap-3 mb-8 animate-fadeInUp"
-              style={{ animationDelay: '0.25s' }}
-            >
+            <div className="flex flex-wrap gap-3 mb-8">
               {['Verified Drivers', 'Transparent Fares', 'Multiple Vehicles', '5-State Coverage'].map(
                 (badge) => (
                   <span key={badge} className="badge-gold text-xs">
@@ -226,10 +221,7 @@ export default function HomePage() {
             </div>
 
             {/* CTA buttons */}
-            <div
-              className="flex flex-col gap-2.5 sm:gap-3 animate-fadeInUp pt-1"
-              style={{ animationDelay: '0.3s' }}
-            >
+            <div className="flex flex-col gap-2.5 sm:gap-3 pt-1">
               {/* Primary action — Book a Cab */}
               <a
                 href="#booking"
@@ -267,9 +259,9 @@ export default function HomePage() {
 
           {/* Right column on desktop, first on mobile — Enhanced Booking Form */}
           <div
-            className="w-full max-w-lg order-1 lg:order-2 animate-fadeInUp scroll-mt-20 sm:scroll-mt-24"
-            style={{ animationDelay: '0.2s' }}
+            className="w-full max-w-lg order-1 lg:order-2 scroll-mt-20 sm:scroll-mt-24"
             id="booking"
+            style={{ minHeight: '480px' }}
           >
             <div className="glass-booking rounded-2xl sm:rounded-3xl p-3.5 sm:p-7 md:p-8 relative overflow-hidden shadow-2xl">
               {/* Radiant glass glow ambient effects */}

@@ -25,7 +25,7 @@ export async function renderOgImage(): Promise<ImageResponse> {
     logoSrc = null;
   }
   try {
-    const bgData = await readFile(join(process.cwd(), 'public', 'uma-travels-og-banner.jpg'), 'base64');
+    const bgData = await readFile(join(process.cwd(), 'public', 'uma-travels-bg1.jpg'), 'base64');
     bgSrc = `data:image/jpeg;base64,${bgData}`;
   } catch {
     bgSrc = null;
@@ -128,7 +128,7 @@ export async function renderOgImage(): Promise<ImageResponse> {
             <span style={{ color: '#f59e0b', fontWeight: 700 }}>Call</span>
             <span>{SITE_CONFIG.phone}</span>
           </div>
-          <div style={{ display: 'flex' }}>www.umatravels.in</div>
+          <div style={{ display: 'flex' }}>www.uma-travels.com</div>
         </div>
         </div>
       </div>

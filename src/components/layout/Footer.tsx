@@ -124,9 +124,9 @@ export default function Footer() {
                     <Icon size={20} />
                   </div>
                   <div className="min-w-0">
-                    <h4 className="text-sm font-black text-white tracking-tight group-hover:text-amber-300 transition-colors">
+                    <p className="text-sm font-black text-white tracking-tight group-hover:text-amber-300 transition-colors">
                       {pillar.title}
-                    </h4>
+                    </p>
                     <p className="text-xs text-slate-400 mt-0.5 leading-snug">
                       {pillar.desc}
                     </p>
@@ -459,7 +459,7 @@ export default function Footer() {
                 className="h-10 sm:h-11 px-3 sm:px-4 bg-white rounded-xl shadow-xs flex items-center justify-center transition-transform hover:scale-105"
                 title="UPI (Google Pay, PhonePe, Paytm, BHIM)"
               >
-                <svg viewBox="0 0 100 42" className="h-6 sm:h-7 w-auto" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="UPI">
+                <svg viewBox="0 0 100 42" className="h-6 sm:h-7 w-auto" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="UPI">
                   <g transform="skewX(-16) translate(10, 0)">
                     <path d="M6 7v13c0 3.2 2.2 5 5.5 5s5.5-1.8 5.5-5V7h-3.4v12.5c0 1.3-.9 2-2.1 2s-2.1-.7-2.1-2V7H6z" fill="#4B4F54"/>
                     <path d="M19 7v18h3.4v-5.5h4.2c3.8 0 6.4-2.4 6.4-6.3 0-3.9-2.6-6.2-6.4-6.2H19zm3.4 3.3h4c2 0 3 1.1 3 3s-1 3-3 3h-4v-6z" fill="#4B4F54"/>
@@ -478,7 +478,7 @@ export default function Footer() {
                 className="h-10 sm:h-11 px-3 sm:px-4 bg-white rounded-xl shadow-xs flex items-center justify-center transition-transform hover:scale-105"
                 title="Mastercard"
               >
-                <svg viewBox="0 0 64 40" className="h-6 sm:h-7 w-auto" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Mastercard">
+                <svg viewBox="0 0 64 40" className="h-6 sm:h-7 w-auto" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mastercard">
                   <g transform="translate(6, 2)">
                     <circle cx="17" cy="14" r="13" fill="#EB001B"/>
                     <circle cx="35" cy="14" r="13" fill="#F79E1B"/>
@@ -495,7 +495,7 @@ export default function Footer() {
                 className="h-10 sm:h-11 px-3.5 sm:px-4.5 bg-white rounded-xl shadow-xs flex items-center justify-center transition-transform hover:scale-105"
                 title="Visa"
               >
-                <svg viewBox="0 0 68 24" className="h-4 sm:h-5 w-auto" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Visa">
+                <svg viewBox="0 0 68 24" className="h-4 sm:h-5 w-auto" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Visa">
                   <path d="M28.3 1.8L19.4 20H14.2L8.5 4.5C8.2 3.3 7.8 2.8 6.9 2.2C5.3 1.4 2.5 0.6 0 0.1L0.2 0H12.1C13.6 0 15 1.1 15.3 2.7L18 16.8L23.2 1.8H28.3ZM53.2 13.9C53.2 8.5 45.8 8.2 45.9 5.8C45.9 5.1 46.7 4.3 48.2 4.1C49 4 51.1 3.9 53.4 5L54.4 0.9C53 0.4 51.3 0 49.1 0C43.1 0 38.9 3.2 38.8 7.7C38.7 11 41.8 12.9 44.1 14.1C46.4 15.2 47.3 16 47.2 17C47.2 18.5 45.4 19.2 43.7 19.2C40.5 19.2 38.7 18.3 37.2 17.6L36.2 21.9C37.8 22.6 40.5 23.3 43.3 23.3C49.6 23.3 53.3 20.1 53.2 13.9ZM68.9 20H73.4L69.5 1.8H65.8C64.8 1.8 64 2.4 63.6 3.2L54.3 20H59.7L60.8 17H67.4L68.9 20ZM62.2 13.2L64.9 5.8L66.5 13.2H62.2ZM38 1.8L33.8 20H28.7L32.9 1.8H38Z" fill="#1434CB"/>
                 </svg>
               </div>

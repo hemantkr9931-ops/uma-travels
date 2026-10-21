@@ -35,10 +35,11 @@ export function buildMetadata(options: SEOOptions): Metadata {
   const cleanTitle = title.replace(BRAND_SUFFIX, '').trim() || title;
   const socialTitle = `${cleanTitle} | ${BRAND}`;
 
-  // Every page gets a branded social card.
-  const HERO_BANNER_URL = `${SITE_CONFIG.siteUrl}/uma-travels-og-banner.jpg`;
-  const resolvedOgImage = ogImage ? toAbsolute(ogImage) : HERO_BANNER_URL;
-  const resolvedTwitterImage = ogImage ? toAbsolute(ogImage) : HERO_BANNER_URL;
+  // Every page gets a branded social card featuring uma-travels-bg1.
+  const PRIMARY_IMAGE_WEBP = `${SITE_CONFIG.siteUrl}/uma-travels-bg1.webp`;
+  const PRIMARY_IMAGE_JPG = `${SITE_CONFIG.siteUrl}/uma-travels-bg1.jpg`;
+  const resolvedOgImage = ogImage ? toAbsolute(ogImage) : PRIMARY_IMAGE_WEBP;
+  const resolvedTwitterImage = ogImage ? toAbsolute(ogImage) : PRIMARY_IMAGE_WEBP;
 
   return {
     title: cleanTitle,
@@ -49,13 +50,13 @@ export function buildMetadata(options: SEOOptions): Metadata {
     },
     icons: {
       icon: [
-        { url: '/favicon.ico', sizes: 'any' },
         { url: '/favicon-48x48.png', sizes: '48x48', type: 'image/png' },
         { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
         { url: '/logo-192.png', sizes: '192x192', type: 'image/png' },
         { url: '/logo-512.png', sizes: '512x512', type: 'image/png' },
+        { url: '/favicon.ico', sizes: 'any' },
       ],
-      shortcut: '/favicon.ico',
+      shortcut: '/favicon-48x48.png',
       apple: [
         { url: '/logo-180.png', sizes: '180x180', type: 'image/png' },
       ],
@@ -83,8 +84,16 @@ export function buildMetadata(options: SEOOptions): Metadata {
       images: [
         {
           url: resolvedOgImage,
-          width: 1200,
-          height: 630,
+          width: 1983,
+          height: 793,
+          type: 'image/webp',
+          alt: `${cleanTitle} — ${BRAND}`,
+        },
+        {
+          url: PRIMARY_IMAGE_JPG,
+          width: 1983,
+          height: 793,
+          type: 'image/jpeg',
           alt: `${cleanTitle} — ${BRAND}`,
         },
       ],
@@ -147,8 +156,9 @@ export function getOrganizationSchema() {
       height: 512,
     },
     image: [
+      `${SITE_CONFIG.siteUrl}/uma-travels-bg1.webp`,
+      `${SITE_CONFIG.siteUrl}/uma-travels-bg1.jpg`,
       `${SITE_CONFIG.siteUrl}/uma-travels-og-banner.jpg`,
-      `${SITE_CONFIG.siteUrl}/uma-travels-bg2.webp`,
       LOGO_URL,
     ],
     description: SITE_CONFIG.description,
@@ -189,8 +199,9 @@ export function getLocalBusinessSchema() {
     description: SITE_CONFIG.description,
     url: SITE_CONFIG.siteUrl,
     image: [
+      `${SITE_CONFIG.siteUrl}/uma-travels-bg1.webp`,
+      `${SITE_CONFIG.siteUrl}/uma-travels-bg1.jpg`,
       `${SITE_CONFIG.siteUrl}/uma-travels-og-banner.jpg`,
-      `${SITE_CONFIG.siteUrl}/uma-travels-bg2.webp`,
       LOGO_URL,
     ],
     logo: LOGO_URL,
@@ -271,8 +282,8 @@ export function getWebSiteSchema() {
     alternateName: SITE_CONFIG.alternateNames,
     url: SITE_CONFIG.siteUrl,
     description: SITE_CONFIG.description,
-    image: `${SITE_CONFIG.siteUrl}/uma-travels-og-banner.jpg`,
-    thumbnailUrl: `${SITE_CONFIG.siteUrl}/uma-travels-og-banner.jpg`,
+    image: `${SITE_CONFIG.siteUrl}/uma-travels-bg1.webp`,
+    thumbnailUrl: `${SITE_CONFIG.siteUrl}/uma-travels-bg1.webp`,
     inLanguage: 'en-IN',
     publisher: { '@id': ORG_ID },
     potentialAction: {
@@ -306,12 +317,12 @@ export function getWebPageSchema(opts: {
     name: opts.title,
     description: opts.description,
     url: `${SITE_CONFIG.siteUrl}${opts.url}`,
-    image: `${SITE_CONFIG.siteUrl}/uma-travels-og-banner.jpg`,
+    image: `${SITE_CONFIG.siteUrl}/uma-travels-bg1.webp`,
     primaryImageOfPage: {
       '@type': 'ImageObject',
-      url: `${SITE_CONFIG.siteUrl}/uma-travels-og-banner.jpg`,
-      width: 1200,
-      height: 630,
+      url: `${SITE_CONFIG.siteUrl}/uma-travels-bg1.webp`,
+      width: 1983,
+      height: 793,
       caption: 'UMA TRAVELS — Premium Cab Service and Fleet',
     },
     inLanguage: 'en-IN',

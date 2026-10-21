@@ -1,0 +1,37 @@
+{
+  "$schema": "https://agenticresourcediscovery.org/spec/v1/schema.json",
+  "name": "UMA TRAVELS",
+  "description": "Premium Cab Service, Taxi Booking, and Car Rental in Dhanbad, Jharkhand and Eastern India.",
+  "url": "https://www.uma-travels.com",
+  "provider": {
+    "name": "UMA TRAVELS",
+    "url": "https://www.uma-travels.com",
+    "contact": {
+      "email": "umatravelsbooking@gmail.com",
+      "phone": "+918789774460"
+    }
+  },
+  "resources": [
+    {
+      "id": "llms-txt",
+      "type": "documentation",
+      "format": "text/markdown",
+      "url": "https://www.uma-travels.com/llms.txt",
+      "description": "Standardized markdown guide for LLMs and AI crawlers"
+    },
+    {
+      "id": "llms-full-txt",
+      "type": "documentation",
+      "format": "text/markdown",
+      "url": "https://www.uma-travels.com/llms-full.txt",
+      "description": "Complete service catalog and pricing information for AI systems"
+    },
+    {
+      "id": "sitemap",
+      "type": "sitemap",
+      "format": "application/xml",
+      "url": "https://www.uma-travels.com/sitemap.xml",
+      "description": "XML sitemap of all published routes, cities, and services"
+    }
+  ]
+}

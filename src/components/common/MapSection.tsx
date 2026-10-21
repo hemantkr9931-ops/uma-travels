@@ -183,6 +183,7 @@ export function CityMap({ lat, lng, cityName, zoom = 12 }: CityMapProps) {
       {/* Map DOM Container */}
       <div
         ref={containerRef}
+        role="region"
         style={{ height: '380px', width: '100%', zIndex: 1 }}
         className={mapStatus === 'fallback' ? 'hidden' : 'block'}
         aria-label={`Interactive map of ${cityName}`}
@@ -352,6 +353,7 @@ export function RouteMap({ origin, destination, viaPoints = [] }: RouteMapProps)
     <div className="relative rounded-2xl overflow-hidden border border-[var(--color-border)] shadow-md bg-[var(--color-bg-secondary)]">
       <div
         ref={containerRef}
+        role="region"
         style={{ height: '400px', width: '100%', zIndex: 1 }}
         className={mapStatus === 'fallback' ? 'hidden' : 'block'}
         aria-label={`Interactive route map from ${origin.name} to ${destination.name}`}

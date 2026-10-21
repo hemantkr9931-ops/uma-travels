@@ -8,6 +8,8 @@ import {
   getEligibleVehicles,
   getEffectiveTripType,
   isKolkataCoordinates,
+  SHORT_DISTANCE_THRESHOLD_KM,
+  SHORT_DISTANCE_RENTAL_CHARGE,
   type VehicleCategory,
 } from '@/data/vehicles';
 import { getClientIp, isRateLimited } from '@/lib/rate-limit';
@@ -259,18 +261,20 @@ export async function POST(request: NextRequest) {
     let baseDistanceCharge: number;
     let nightHaltCharge = 0;
     let totalFare: number;
+    // Short-distance rental: ₹700 added for routes under 50 km
+    const shortDistanceRental = distanceKm < SHORT_DISTANCE_THRESHOLD_KM ? SHORT_DISTANCE_RENTAL_CHARGE : 0;
 
     if (tripType === 'one-way') {
       ratePerKm = fareConfig.oneWayPerKm!;
       baseDistanceCharge = Math.round(distanceKm * ratePerKm);
-      totalFare = baseDistanceCharge;
+      totalFare = baseDistanceCharge + shortDistanceRental;
     } else {
       ratePerKm = fareConfig.roundTripPerKm;
       baseDistanceCharge = Math.round(2 * distanceKm * ratePerKm);
       if (pickupDate && returnDate) {
         nightHaltCharge = nightHaltCount * vehicle.nightHaltCharge;
       }
-      totalFare = baseDistanceCharge + nightHaltCharge;
+      totalFare = baseDistanceCharge + shortDistanceRental + nightHaltCharge;
     }
 
     return {
@@ -283,6 +287,7 @@ export async function POST(request: NextRequest) {
       oneWayDistanceKm: distanceKm,
       ratePerKm,
       baseDistanceCharge,
+      shortDistanceRental,
       nightHaltCount: tripType === 'round-trip' ? nightHaltCount : 0,
       nightHaltCharge: tripType === 'round-trip' ? nightHaltCharge : 0,
       perNightHaltRate: vehicle.nightHaltCharge,

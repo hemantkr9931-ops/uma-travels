@@ -4,7 +4,7 @@
 // represent genuine travel demand and service capability.
 // =====================================================================
 import { ALL_LOCATIONS, HUB_CITIES, getLocationBySlug, type Location } from './locations';
-import { VEHICLES, calculateFare, type VehicleCategory, isKolkataLocation } from './vehicles';
+import { VEHICLES, calculateFare, type VehicleCategory, isKolkataLocation, SHORT_DISTANCE_THRESHOLD_KM, SHORT_DISTANCE_RENTAL_CHARGE } from './vehicles';
 
 export interface Route {
   id: string;
@@ -2990,29 +2990,31 @@ export function getRouteFare(route: Route, vehicleId: VehicleCategory): number {
     route.destinationSlug.toLowerCase().includes('howrah');
 
   const requiresReturnFare = dist > 200 && !isKolkata;
+  // Short-distance rental: ₹700 added for routes under 50 km
+  const shortDistanceRental = dist < SHORT_DISTANCE_THRESHOLD_KM ? SHORT_DISTANCE_RENTAL_CHARGE : 0;
 
   if (vehicleId === 'sedan') {
     const rate = requiresReturnFare ? 14 : 21;
     const factor = requiresReturnFare ? 2 : 1;
-    return Math.round(dist * rate * factor);
+    return Math.round(dist * rate * factor) + shortDistanceRental;
   }
 
   if (vehicleId === 'ertiga') {
     const rate = requiresReturnFare ? 20 : 26;
     const factor = requiresReturnFare ? 2 : 1;
-    return Math.round(dist * rate * factor);
+    return Math.round(dist * rate * factor) + shortDistanceRental;
   }
 
   if (vehicleId === 'innova') {
     const rate = 35;
     const factor = requiresReturnFare ? 2 : 1;
-    return Math.round(dist * rate * factor);
+    return Math.round(dist * rate * factor) + shortDistanceRental;
   }
 
   // Fallback for any other vehicle (e.g. tempo traveller)
   const rate = 28;
   const factor = requiresReturnFare ? 2 : 1;
-  return Math.round(dist * rate * factor);
+  return Math.round(dist * rate * factor) + shortDistanceRental;
 }
 
 /** Sedan (starting) one-way fare for a route, in INR. */

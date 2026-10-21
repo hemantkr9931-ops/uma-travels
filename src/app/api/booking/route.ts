@@ -730,7 +730,8 @@ export async function POST(request: NextRequest) {
         nightHaltCount = calculateNightHalts(raw.pickupDate, raw.returnDate);
         nightHaltCharge = nightHaltCount * 1000;
       }
-      totalFare = baseCharge + nightHaltCharge;
+      const shortRental = distanceKm < 50 ? 700 : 0;
+      totalFare = baseCharge + shortRental + nightHaltCharge;
     }
   }
 
