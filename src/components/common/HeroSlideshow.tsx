@@ -19,10 +19,14 @@ interface HeroSlideshowProps {
 export default function HeroSlideshow({ className = '', overlayClassName = '' }: HeroSlideshowProps) {
   const [current, setCurrent] = useState(0);
   const [prev, setPrev] = useState<number | null>(null);
-  const [mounted, setMounted] = useState(false);
+  const [canLoadSecondary, setCanLoadSecondary] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    // Delay loading secondary slides (2 & 3) so they don't consume bandwidth during initial page load
+    const timer = setTimeout(() => {
+      setCanLoadSecondary(true);
+    }, 3500);
+    return () => clearTimeout(timer);
   }, []);
 
   const advance = useCallback(() => {
@@ -33,15 +37,15 @@ export default function HeroSlideshow({ className = '', overlayClassName = '' }:
   }, []);
 
   useEffect(() => {
-    if (!mounted) return;
+    if (!canLoadSecondary) return;
     const t = setInterval(advance, INTERVAL_MS);
     return () => clearInterval(t);
-  }, [advance, mounted]);
+  }, [advance, canLoadSecondary]);
 
   return (
     <div className={`absolute inset-0 overflow-hidden ${className}`} aria-hidden="true">
       {SLIDES.map((slide, idx) => {
-        if (idx > 0 && !mounted) return null;
+        if (idx > 0 && !canLoadSecondary) return null;
         return (
           <div
             key={slide.src}
@@ -57,8 +61,9 @@ export default function HeroSlideshow({ className = '', overlayClassName = '' }:
               fill
               priority={idx === 0}
               loading={idx === 0 ? 'eager' : 'lazy'}
+              fetchPriority={idx === 0 ? 'high' : 'low'}
               quality={75}
-              sizes="100vw"
+              sizes="(max-width: 768px) 100vw, 100vw"
               style={{ objectFit: 'cover', objectPosition: 'center' }}
             />
           </div>

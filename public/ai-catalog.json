@@ -1,37 +1,108 @@
 {
-  "$schema": "https://agenticresourcediscovery.org/spec/v1/schema.json",
-  "name": "UMA TRAVELS",
-  "description": "Premium Cab Service, Taxi Booking, and Car Rental in Dhanbad, Jharkhand and Eastern India.",
-  "url": "https://www.uma-travels.com",
-  "provider": {
-    "name": "UMA TRAVELS",
-    "url": "https://www.uma-travels.com",
-    "contact": {
-      "email": "umatravelsbooking@gmail.com",
-      "phone": "+918789774460"
-    }
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "UMA TRAVELS",
+    "documentationUrl": "https://www.uma-travels.com/llms.txt",
+    "logoUrl": "https://www.uma-travels.com/logo-512.png"
   },
-  "resources": [
+  "entries": [
     {
-      "id": "llms-txt",
-      "type": "documentation",
-      "format": "text/markdown",
+      "identifier": "urn:air:uma-travels:documentation:llms-txt",
+      "displayName": "UMA Travels LLM Guide",
+      "type": "text/markdown",
       "url": "https://www.uma-travels.com/llms.txt",
-      "description": "Standardized markdown guide for LLMs and AI crawlers"
+      "description": "Standardized markdown guide for LLMs and AI agents covering services, fleet, routes, and transparent pricing across Eastern India.",
+      "tags": [
+        "cab-service",
+        "taxi-booking",
+        "car-rental",
+        "dhanbad",
+        "jharkhand",
+        "ai-guide"
+      ],
+      "capabilities": [
+        "RouteDiscovery",
+        "FareEstimate",
+        "FleetInformation"
+      ],
+      "representativeQueries": [
+        "Cab fares from Dhanbad to Ranchi",
+        "How to book outstation taxi with Uma Travels",
+        "Car rental options and rates in Dhanbad"
+      ],
+      "version": "1.0.0"
     },
     {
-      "id": "llms-full-txt",
-      "type": "documentation",
-      "format": "text/markdown",
+      "identifier": "urn:air:uma-travels:documentation:llms-full-txt",
+      "displayName": "UMA Travels Full Service Catalog",
+      "type": "text/markdown",
       "url": "https://www.uma-travels.com/llms-full.txt",
-      "description": "Complete service catalog and pricing information for AI systems"
+      "description": "Comprehensive text catalog of 900+ routes, intercity taxi fares, vehicle specifications, and booking policies for AI systems.",
+      "tags": [
+        "cab-service",
+        "taxi-routes",
+        "car-rental",
+        "bihar",
+        "bengal",
+        "odisha"
+      ],
+      "capabilities": [
+        "FullCatalog",
+        "FleetSpecifications",
+        "PricingMatrix"
+      ],
+      "representativeQueries": [
+        "Intercity cab routes from Dhanbad to Kolkata",
+        "Innova Crysta booking charges per km",
+        "Airport drop taxi rates to Ranchi Airport"
+      ],
+      "version": "1.0.0"
     },
     {
-      "id": "sitemap",
-      "type": "sitemap",
-      "format": "application/xml",
+      "identifier": "urn:air:uma-travels:services:taxi-booking",
+      "displayName": "UMA Travels Taxi Booking Service",
+      "type": "application/json",
+      "url": "https://www.uma-travels.com/api/booking",
+      "description": "Online reservation endpoint and instant taxi booking service for local hourly car rentals and outstation trips.",
+      "tags": [
+        "taxi-booking",
+        "cab-service",
+        "reservation",
+        "booking-api"
+      ],
+      "capabilities": [
+        "CabBooking",
+        "InstantQuote",
+        "TripReservation"
+      ],
+      "representativeQueries": [
+        "Book a one-way cab from Dhanbad to Bokaro",
+        "Hire local taxi for 8 hours in Dhanbad",
+        "Reserve an Ertiga cab to Deoghar Mandir"
+      ],
+      "version": "1.0.0"
+    },
+    {
+      "identifier": "urn:air:uma-travels:sitemap:main",
+      "displayName": "UMA Travels XML Sitemap",
+      "type": "application/xml",
       "url": "https://www.uma-travels.com/sitemap.xml",
-      "description": "XML sitemap of all published routes, cities, and services"
+      "description": "Indexable XML sitemap of all published destination routes, city landing pages, and travel booking links.",
+      "tags": [
+        "sitemap",
+        "seo",
+        "destinations",
+        "routes"
+      ],
+      "capabilities": [
+        "UrlDiscovery",
+        "PageIndexing"
+      ],
+      "representativeQueries": [
+        "Discover all destination routes on uma-travels.com",
+        "Sitemap for Jharkhand and Bihar taxi destinations"
+      ],
+      "version": "1.0.0"
     }
   ]
 }

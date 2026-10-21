@@ -161,10 +161,27 @@ export function CityMap({ lat, lng, cityName, zoom = 12 }: CityMapProps) {
       }
     }
 
-    initMap();
+    let observer: IntersectionObserver | null = null;
+    if (typeof window !== 'undefined' && 'IntersectionObserver' in window && containerRef.current) {
+      observer = new IntersectionObserver(
+        (entries) => {
+          if (entries[0]?.isIntersecting) {
+            initMap();
+            if (observer && containerRef.current) {
+              observer.unobserve(containerRef.current);
+            }
+          }
+        },
+        { rootMargin: '300px' }
+      );
+      observer.observe(containerRef.current);
+    } else {
+      initMap();
+    }
 
     return () => {
       mounted = false;
+      if (observer) observer.disconnect();
       if (mapRef.current) {
         try {
           mapRef.current.remove();
@@ -330,10 +347,27 @@ export function RouteMap({ origin, destination, viaPoints = [] }: RouteMapProps)
       }
     }
 
-    initMap();
+    let observer: IntersectionObserver | null = null;
+    if (typeof window !== 'undefined' && 'IntersectionObserver' in window && containerRef.current) {
+      observer = new IntersectionObserver(
+        (entries) => {
+          if (entries[0]?.isIntersecting) {
+            initMap();
+            if (observer && containerRef.current) {
+              observer.unobserve(containerRef.current);
+            }
+          }
+        },
+        { rootMargin: '300px' }
+      );
+      observer.observe(containerRef.current);
+    } else {
+      initMap();
+    }
 
     return () => {
       mounted = false;
+      if (observer) observer.disconnect();
       if (mapRef.current) {
         try {
           mapRef.current.remove();

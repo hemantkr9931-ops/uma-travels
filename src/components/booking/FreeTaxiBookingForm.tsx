@@ -1001,7 +1001,7 @@ export default function FreeTaxiBookingForm({ prefillFrom = '', prefillTo = '' }
                   <button 
                     type="button" 
                     onClick={() => { setPickupDate(getLocalDateISO()); setDateError(''); }} 
-                    className={`text-[10px] font-bold px-2 py-0.5 rounded-lg border transition-all cursor-pointer ${
+                    className={`text-[10px] font-bold px-2 py-0.5 rounded-lg border transition-colors cursor-pointer ${
                       pickupDate === getLocalDateISO()
                         ? 'bg-amber-500 text-white border-amber-500 shadow-sm'
                         : 'bg-amber-50 text-amber-800 border-amber-300/60 hover:bg-amber-100'
@@ -1012,7 +1012,7 @@ export default function FreeTaxiBookingForm({ prefillFrom = '', prefillTo = '' }
                   <button 
                     type="button" 
                     onClick={() => { setPickupDate(getLocalDateISO(1)); setDateError(''); }} 
-                    className={`text-[10px] font-bold px-2 py-0.5 rounded-lg border transition-all cursor-pointer ${
+                    className={`text-[10px] font-bold px-2 py-0.5 rounded-lg border transition-colors cursor-pointer ${
                       pickupDate === getLocalDateISO(1)
                         ? 'bg-amber-500 text-white border-amber-500 shadow-sm'
                         : 'bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200'

@@ -22,9 +22,11 @@ import {
   type VehicleCategory,
 } from '@/data/vehicles';
 import { ALL_LOCATIONS } from '@/data/locations';
+import dynamic from 'next/dynamic';
 import { getWhatsAppUrl, SITE_CONFIG } from '@/lib/config';
 import { getDistanceEstimate, haversineKm, resolvePlaceCoords } from '@/lib/geo-places';
-import MapPickerLeaflet from './MapPickerLeaflet';
+
+const MapPickerLeaflet = dynamic(() => import('./MapPickerLeaflet'), { ssr: false });
 
 const TRIP_TYPES = ['one-way', 'round-trip', 'local', 'outstation', 'wedding', 'corporate', 'airport-transfer'] as const;
 
@@ -936,22 +938,24 @@ export default function EnhancedBookingForm({
 
   return (
     <>
-      {/* Map Picker Modal */}
-      <MapPickerLeaflet
-        isOpen={mapPickerFor !== null}
-        title={mapPickerFor === 'from' ? 'Select Pickup Location' : 'Select Drop Location'}
-        onClose={() => setMapPickerFor(null)}
-        onSelect={(name, lat, lng) => {
-          if (mapPickerFor === 'from') {
-            setValue('from', name, { shouldValidate: true });
-            if (lat && lng) setFromCoords({ lat, lng });
-          } else {
-            setValue('to', name, { shouldValidate: true });
-            if (lat && lng) setToCoords({ lat, lng });
-          }
-          setMapPickerFor(null);
-        }}
-      />
+      {/* Map Picker Modal - Dynamically loaded on demand only when opened */}
+      {mapPickerFor !== null && (
+        <MapPickerLeaflet
+          isOpen={true}
+          title={mapPickerFor === 'from' ? 'Select Pickup Location' : 'Select Drop Location'}
+          onClose={() => setMapPickerFor(null)}
+          onSelect={(name, lat, lng) => {
+            if (mapPickerFor === 'from') {
+              setValue('from', name, { shouldValidate: true });
+              if (lat && lng) setFromCoords({ lat, lng });
+            } else {
+              setValue('to', name, { shouldValidate: true });
+              if (lat && lng) setToCoords({ lat, lng });
+            }
+            setMapPickerFor(null);
+          }}
+        />
+      )}
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate id="booking" aria-label="Cab booking form" className="relative">
         <div ref={formTopRef} />
@@ -1059,8 +1063,8 @@ export default function EnhancedBookingForm({
                     <Calendar size={11} className="text-amber-500 shrink-0" />Date
                   </label>
                   <div className="flex gap-1 shrink-0">
-                    <button type="button" onClick={() => setValue('pickupDate', getLocalDateISO(), { shouldValidate: true })} className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-800 border border-amber-400/25 cursor-pointer hover:bg-amber-500/25 transition">Today</button>
-                    <button type="button" onClick={() => setValue('pickupDate', getLocalDateISO(1), { shouldValidate: true })} className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200 cursor-pointer hover:bg-slate-200 transition">Tmrw</button>
+                    <button type="button" onClick={() => setValue('pickupDate', getLocalDateISO(), { shouldValidate: true })} className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-800 border border-amber-400/25 cursor-pointer hover:bg-amber-500/25 transition-colors">Today</button>
+                    <button type="button" onClick={() => setValue('pickupDate', getLocalDateISO(1), { shouldValidate: true })} className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200 cursor-pointer hover:bg-slate-200 transition-colors">Tmrw</button>
                   </div>
                 </div>
                 <input id="pickupDate" type="date" min={minDate} suppressHydrationWarning className={`form-input !min-h-[36px] sm:!min-h-[40px] !py-1 !px-2.5 text-xs shadow-2xs bg-white/90 font-medium ${errors.pickupDate ? 'border-red-400' : ''}`} {...register('pickupDate')} />
@@ -1180,8 +1184,9 @@ export default function EnhancedBookingForm({
                   <Phone size={11} className="text-emerald-500" />Mobile / WhatsApp
                 </label>
                 <div className={`flex items-center rounded-xl border bg-white/95 transition-all !min-h-[36px] sm:!min-h-[40px] ${errors.phone ? 'border-red-400' : 'border-slate-200 focus-within:border-amber-500'}`}>
+                  <label htmlFor="countryCode" className="sr-only">Country Code</label>
                   <div className="relative shrink-0 flex items-center border-r border-slate-200">
-                    <select className="h-8 sm:h-9 pl-1.5 pr-4 bg-transparent text-xs font-black text-slate-800 appearance-none cursor-pointer focus:outline-none" {...register('countryCode')}>
+                    <select id="countryCode" aria-label="Country Code" className="h-8 sm:h-9 pl-1.5 pr-4 bg-transparent text-xs font-black text-slate-800 appearance-none cursor-pointer focus:outline-none" {...register('countryCode')}>
                       {COUNTRY_CODES.map((c) => (<option key={c.code} value={c.code}>{c.flag} {c.code}</option>))}
                     </select>
                     <ChevronDown size={10} className="text-slate-400 pointer-events-none absolute right-1" />
